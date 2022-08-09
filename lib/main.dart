@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:flutter/material.dart';
 
 void main() {
@@ -26,7 +28,31 @@ class MyApp extends StatelessWidget {
                 Text(
                   'I\'m Learning Flutter',
                 ),
+                TickerWidget()
               ],
             ))));
+  }
+}
+
+class TickerWidget extends StatefulWidget {
+  const TickerWidget({super.key});
+  @override
+  TickerWidgetState createState() => TickerWidgetState();
+}
+
+class TickerWidgetState extends State<TickerWidget> {
+  DateTime currentTime = DateTime.now();
+
+  @override
+  Widget build(BuildContext context) {
+    Timer.periodic(const Duration(seconds: 1), ((timer) {
+      DateTime newTime = DateTime.now();
+      setState(() {
+        currentTime = newTime;
+      });
+    }));
+    return Container(
+      child: Text(currentTime.toLocal().toString()),
+    );
   }
 }
